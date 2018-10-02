@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "616210090272",
+    "firebase_url": "https://uus1-42ca9.firebaseio.com",
+    "project_id": "uus1-42ca9",
+    "storage_bucket": "uus1-42ca9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:616210090272:android:5aeca7edce7ad031",
+        "android_client_info": {
+          "package_name": "mans.abdullah.abdullah_mansour.universitystudentssystem"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "616210090272-jrrs3v2ufnug8ia4tpfiuk0rb14d7avp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "mans.abdullah.abdullah_mansour.universitystudentssystem",
+            "certificate_hash": "72e46d6160b832ce079cfbcfa13a4ed0c20e62bb"
+          }
+        },
+        {
+          "client_id": "616210090272-ch06sk7ehvju8q23c2jrcu5ehjvvhjvt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDiVFJXu3FnT8B38H_LBTkoIydzq4905gA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "616210090272-ch06sk7ehvju8q23c2jrcu5ehjvvhjvt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
