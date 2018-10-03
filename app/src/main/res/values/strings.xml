@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">USS</string>
+
+    <string name="preference_file_key">pref</string>
+    <string name="isCheckedint">isChecked</string>
+    <string name="emailpref">email</string>
+    <string name="passwordpref">password</string>
 </resources>

@@ -11,6 +11,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -18,6 +21,7 @@ import java.util.TimerTask;
 
 public class StartActivity extends AppCompatActivity {
     LinearLayout sign_up_btn,sign_in_btn,contact_us_btn;
+    FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +31,8 @@ public class StartActivity extends AppCompatActivity {
         sign_up_btn = (LinearLayout) findViewById(R.id.sign_up_btn);
         sign_in_btn = (LinearLayout) findViewById(R.id.sign_in_btn);
         contact_us_btn = (LinearLayout) findViewById(R.id.contact_us_btn);
+
+        mAuth = FirebaseAuth.getInstance();
 
         sign_up_btn.setOnClickListener(new View.OnClickListener() {
             @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -52,11 +58,28 @@ public class StartActivity extends AppCompatActivity {
             @TargetApi(Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClick(View v) {
-                Intent n = new Intent(getApplicationContext(), MainActivity.class);
+                /*Intent n = new Intent(getApplicationContext(), PhoneVerificationActivity.class);
                 startActivity(n,
-                        ActivityOptions.makeSceneTransitionAnimation(StartActivity.this).toBundle());
+                        ActivityOptions.makeSceneTransitionAnimation(StartActivity.this).toBundle());*/
             }
         });
+    }
+
+    @Override
+    protected void onStart()
+    {
+        super.onStart();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser != null)
+        {
+            UpdateUI();
+        }
+    }
+
+    public void UpdateUI()
+    {
+        Intent n = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(n);
     }
 
     @Override

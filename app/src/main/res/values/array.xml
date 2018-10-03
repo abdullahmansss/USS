@@ -4,14 +4,9 @@
     <string-array name="department">
         <item></item>
         <item>Architectural Engineering Department</item>
-        <item>Biomedical Engineering and Systems Department</item>
-        <item>Chemical Engineering Department</item>
         <item>Computer Engineering Department</item>
         <item>Electrical Power and Machines Department</item>
         <item>Electronics and Communications Department</item>
-        <item>Mechanical Power Engineering Department</item>
-        <item>Mining, Petroleum and Metallurgical Department</item>
-        <item>Structural Engineering Department</item>
     </string-array>
 
     <string-array name="year">

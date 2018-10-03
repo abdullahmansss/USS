@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#48C9B0</color>
+    <color name="colorPrimary">#117864</color>
     <color name="colorPrimaryDark">#117864</color>
-    <color name="colorAccent">#48C9B0</color>
+    <color name="colorAccent">#117864</color>
     <color name="back">#E5E8E8</color>
     <color name="textradio">#A6ACAF</color>
     <color name="textradio2">#000</color>
+    <color name="newcolor">#A3E4D7</color>
 </resources>

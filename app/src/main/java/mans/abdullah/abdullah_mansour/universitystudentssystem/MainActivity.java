@@ -1,9 +1,14 @@
 package mans.abdullah.abdullah_mansour.universitystudentssystem;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.LinearLayout;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,16 +16,28 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
-    ViewPager viewPager;
+    /*ViewPager viewPager;
     TabLayout indicator;
-    List<Integer> image;
+    List<Integer> image;*/
+    LinearLayout my_profile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        viewPager = (ViewPager) findViewById(R.id.viewPager);
+        my_profile = (LinearLayout) findViewById(R.id.my_profile_btn);
+
+        my_profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                Intent n = new Intent(getApplicationContext(), StartActivity.class);
+                startActivity(n);
+            }
+        });
+
+        /*viewPager = (ViewPager) findViewById(R.id.viewPager);
         indicator = (TabLayout) findViewById(R.id.indicator);
 
         image = new ArrayList<>();
@@ -32,10 +49,15 @@ public class MainActivity extends AppCompatActivity {
         indicator.setupWithViewPager(viewPager, true);
 
         Timer timer = new Timer();
-        timer.scheduleAtFixedRate(new SliderTimer(), 4000, 6000);
+        timer.scheduleAtFixedRate(new SliderTimer(), 4000, 6000);*/
     }
 
-    private class SliderTimer extends TimerTask {
+    @Override
+    public void onBackPressed() {
+
+    }
+
+    /*private class SliderTimer extends TimerTask {
 
         @Override
         public void run() {
@@ -50,5 +72,5 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
-    }
+    }*/
 }
