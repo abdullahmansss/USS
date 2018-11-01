@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     /*ViewPager viewPager;
     TabLayout indicator;
     List<Integer> image;*/
-    LinearLayout my_profile, timeline;
+    LinearLayout my_profile, timeline, dep;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +32,18 @@ public class MainActivity extends AppCompatActivity {
 
         my_profile = (LinearLayout) findViewById(R.id.my_profile_btn);
         timeline = (LinearLayout) findViewById(R.id.timeline_btn);
+        dep = (LinearLayout) findViewById(R.id.dep_btn);
+
+        dep.setOnClickListener(new View.OnClickListener() {
+            @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+            @Override
+            public void onClick(View v) {
+                Intent n = new Intent(getApplicationContext(), DepartmentsActivity.class);
+                startActivity(n,
+                        ActivityOptions.makeSceneTransitionAnimation(MainActivity.this).toBundle());
+            }
+        });
 
         my_profile.setOnClickListener(new View.OnClickListener() {
             @TargetApi(Build.VERSION_CODES.LOLLIPOP)

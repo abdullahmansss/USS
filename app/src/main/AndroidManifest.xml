@@ -4,10 +4,10 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -37,7 +37,8 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".EditProfileActivity" />
-        <activity android:name=".FinishProfile"></activity>
+        <activity android:name=".FinishProfile" />
+        <activity android:name=".DepartmentsActivity"></activity>
     </application>
 
 </manifest>
