@@ -1,26 +1,31 @@
 package mans.abdullah.abdullah_mansour.universitystudentssystem;
 
 public class UserData {
-    String email,name,phone,depart,year,section;
+    String userID ,name,email,phone,address,imageURL,depart,year,section;
 
-    public UserData() {
+    public UserData()
+    {
+
     }
 
-    public UserData(String email, String name, String phone, String depart, String year, String section) {
-        this.email = email;
+    public UserData(String userID, String name, String email, String phone, String address, String imageURL, String depart, String year, String section) {
+        this.userID = userID;
         this.name = name;
+        this.email = email;
         this.phone = phone;
+        this.address = address;
+        this.imageURL = imageURL;
         this.depart = depart;
         this.year = year;
         this.section = section;
     }
 
-    public String getEmail() {
-        return email;
+    public String getUserID() {
+        return userID;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUserID(String userID) {
+        this.userID = userID;
     }
 
     public String getName() {
@@ -31,12 +36,36 @@ public class UserData {
         this.name = name;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getPhone() {
         return phone;
     }
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getImageURL() {
+        return imageURL;
+    }
+
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
     }
 
     public String getDepart() {

@@ -1,6 +1,10 @@
 package mans.abdullah.abdullah_mansour.universitystudentssystem;
 
+import android.annotation.TargetApi;
+import android.app.ActivityOptions;
 import android.content.Intent;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -19,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     /*ViewPager viewPager;
     TabLayout indicator;
     List<Integer> image;*/
-    LinearLayout my_profile;
+    LinearLayout my_profile, timeline;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,13 +31,19 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         my_profile = (LinearLayout) findViewById(R.id.my_profile_btn);
+        timeline = (LinearLayout) findViewById(R.id.timeline_btn);
 
         my_profile.setOnClickListener(new View.OnClickListener() {
+            @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             @Override
             public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut();
+                /*FirebaseAuth.getInstance().signOut();
                 Intent n = new Intent(getApplicationContext(), StartActivity.class);
-                startActivity(n);
+                startActivity(n);*/
+                Intent n = new Intent(getApplicationContext(), ProfileActivity.class);
+                startActivity(n,
+                        ActivityOptions.makeSceneTransitionAnimation(MainActivity.this).toBundle());
             }
         });
 
