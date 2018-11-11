@@ -2,7 +2,11 @@ package mans.abdullah.abdullah_mansour.universitystudentssystem;
 
 import android.annotation.TargetApi;
 import android.app.ActivityOptions;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.TabLayout;
@@ -11,19 +15,31 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class MainActivity extends AppCompatActivity {
     /*ViewPager viewPager;
     TabLayout indicator;
     List<Integer> image;*/
     LinearLayout my_profile, timeline, dep;
+    ProgressDialog progressDialog;
+    CircleImageView pp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +49,59 @@ public class MainActivity extends AppCompatActivity {
         my_profile = (LinearLayout) findViewById(R.id.my_profile_btn);
         timeline = (LinearLayout) findViewById(R.id.timeline_btn);
         dep = (LinearLayout) findViewById(R.id.dep_btn);
+        pp = findViewById(R.id.profile_image_main);
+
+        ConnectivityManager cm =
+                (ConnectivityManager)MainActivity.this.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
+
+        if (isConnected)
+        {
+            /*progressDialog = new ProgressDialog(MainActivity.this);
+            progressDialog.setMessage("Please Wait ...");
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progressDialog.show();
+            progressDialog.setCancelable(false);*/
+
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+
+            final String userId = user.getUid();
+
+            mDatabase.child("allstudents").child(userId).addListenerForSingleValueEvent(
+                    new ValueEventListener()
+                    {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot)
+                        {
+                            // Get user value
+                            UserData userData = dataSnapshot.getValue(UserData.class);
+
+                            String url = userData.imageURL;
+
+                            Picasso.get()
+                                    .load(url)
+                                    .placeholder(R.drawable.adduser)
+                                    .into(pp);
+
+                            //progressDialog.dismiss();
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError)
+                        {
+                            Toast.makeText(getApplicationContext(), "can\'t fetch data", Toast.LENGTH_SHORT).show();
+                            //progressDialog.dismiss();
+                        }
+                    });
+        }
+        else
+        {
+            Toast.makeText(getApplicationContext(), "please check your internet connection", Toast.LENGTH_SHORT).show();
+        }
 
         dep.setOnClickListener(new View.OnClickListener() {
             @TargetApi(Build.VERSION_CODES.LOLLIPOP)

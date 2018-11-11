@@ -22,10 +22,9 @@
                 android:layout_weight="1"
                 android:padding="10dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/user3"
+                android:src="@drawable/adduser"
                 app:civ_border_color="@color/back"
                 app:civ_border_width="3dp"
-                android:background="@drawable/back3"
                 />
 
         <TextView
@@ -46,8 +45,8 @@
                 android:layout_height="1dp"
                 android:background="@color/textradio"
                 android:layout_marginBottom="10dp"
-                android:layout_marginRight="30dp"
-                android:layout_marginLeft="30dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
                 />
 
             <LinearLayout
@@ -268,11 +267,25 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_margin="16sp"
+        android:layout_margin="16dp"
         android:src="@drawable/edituser"
         android:clickable="true"
         android:focusable="true"
         android:layout_above="@id/logout_btn"
+        android:contentDescription="Edit Profile"
+        />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/refresh_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="16dp"
+        android:src="@drawable/refresh"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_above="@id/edit_user_btn"
+        android:tint="#fff"
         android:contentDescription="Edit Profile"
         />
 

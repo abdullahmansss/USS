@@ -2,14 +2,23 @@ package mans.abdullah.abdullah_mansour.universitystudentssystem;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.annotation.TargetApi;
+import android.app.ActivityOptions;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
+import android.os.Build;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -30,7 +39,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ProfileActivity extends AppCompatActivity {
     TextView username,email,phone,dep,year,sec,address;
     CircleImageView profileimage;
-    FloatingActionButton more_btn,logout_btn,edituser_btn;
+    FloatingActionButton more_btn,logout_btn,edituser_btn,ref_btn;
     String em,na,po,ad,url,de,ye,se;
     ProgressDialog progressDialog;
     boolean rotate = false;
@@ -51,60 +60,77 @@ public class ProfileActivity extends AppCompatActivity {
         more_btn = (FloatingActionButton) findViewById(R.id.more_btn);
         logout_btn = (FloatingActionButton) findViewById(R.id.logout_btn);
         edituser_btn = (FloatingActionButton) findViewById(R.id.edit_user_btn);
+        ref_btn = (FloatingActionButton) findViewById(R.id.refresh_btn);
         initShowOut(logout_btn);
         initShowOut(edituser_btn);
+        initShowOut(ref_btn);
 
-        progressDialog = new ProgressDialog(ProfileActivity.this);
-        progressDialog.setMessage("Please Wait ...");
-        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        progressDialog.show();
-        progressDialog.setCancelable(false);
+        ConnectivityManager cm =
+                (ConnectivityManager)ProfileActivity.this.getSystemService(Context.CONNECTIVITY_SERVICE);
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
 
-        final String userId = user.getUid();
+        if (isConnected)
+        {
+            progressDialog = new ProgressDialog(ProfileActivity.this);
+            progressDialog.setMessage("Please Wait ...");
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progressDialog.show();
+            progressDialog.setCancelable(false);
 
-        mDatabase.child("allstudents").child(userId).addListenerForSingleValueEvent(
-                new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot)
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+
+            final String userId = user.getUid();
+
+            mDatabase.child("allstudents").child(userId).addListenerForSingleValueEvent(
+                    new ValueEventListener()
                     {
-                        // Get user value
-                        UserData userData = dataSnapshot.getValue(UserData.class);
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot)
+                        {
+                            // Get user value
+                            UserData userData = dataSnapshot.getValue(UserData.class);
 
-                        em = userData.email;
-                        na = userData.name;
-                        po = userData.phone;
-                        ad = userData.address;
-                        url = userData.imageURL;
-                        de = userData.depart;
-                        ye = userData.year;
-                        se = userData.section;
+                            em = userData.email;
+                            na = userData.name;
+                            po = userData.phone;
+                            ad = userData.address;
+                            url = userData.imageURL;
+                            de = userData.depart;
+                            ye = userData.year;
+                            se = userData.section;
 
-                        username.setText(na);
-                        email.setText(em);
-                        phone.setText(po);
-                        address.setText(ad);
-                        dep.setText(de);
-                        year.setText(ye);
-                        sec.setText(se);
+                            username.setText(na);
+                            email.setText(em);
+                            phone.setText(po);
+                            address.setText(ad);
+                            dep.setText(de);
+                            year.setText(ye);
+                            sec.setText(se);
 
-                        Picasso.get()
-                                .load(url)
-                                .placeholder(R.drawable.user3)
-                                .into(profileimage);
+                            Picasso.get()
+                                    .load(url)
+                                    .placeholder(R.drawable.user3)
+                                    .into(profileimage);
 
-                        progressDialog.dismiss();
-                    }
+                            progressDialog.dismiss();
+                        }
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError)
-                    {
-                        Toast.makeText(getApplicationContext(), "can\'t fetch data", Toast.LENGTH_SHORT).show();
-                        progressDialog.dismiss();
-                    }
-                });
+                        @Override
+                        public void onCancelled(DatabaseError databaseError)
+                        {
+                            Toast.makeText(getApplicationContext(), "can\'t fetch data", Toast.LENGTH_SHORT).show();
+                            progressDialog.dismiss();
+                        }
+                    });
+        }
+        else
+            {
+                Toast.makeText(getApplicationContext(), "please check your internet connection", Toast.LENGTH_SHORT).show();
+            }
 
         more_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,48 +140,37 @@ public class ProfileActivity extends AppCompatActivity {
                 if (rotate) {
                     showIn(logout_btn);
                     showIn(edituser_btn);
+                    showIn(ref_btn);
                 } else {
                     showOut(logout_btn);
                     showOut(edituser_btn);
+                    showOut(ref_btn);
                 }
             }
         });
 
-        /*loginPreferences = getSharedPreferences("loginPrefs", MODE_PRIVATE);
-        loginPrefsEditor = loginPreferences.edit();
-
-        e = loginPreferences.getString("email", "");
-        n = loginPreferences.getString("name", "");
-        p = loginPreferences.getString("phone", "");
-        d = loginPreferences.getString("dep", "");
-        y = loginPreferences.getString("year", "");
-        s = loginPreferences.getString("sec", "");*/
-
-        /*for (UserInfo profile : user.getProviderData())
+        logout_btn.setOnClickListener(new View.OnClickListener()
         {
-            // Id of the provider (ex: google.com)
-            String providerId = profile.getProviderId();
-
-            // UID specific to the provider
-            String uid = profile.getUid();
-
-            // Name, email address, and profile photo Url
-            String name = profile.getDisplayName();
-            String email = profile.getEmail();
-            Uri photoUrl = profile.getPhotoUrl();
-        };
-
-        String name = user.getDisplayName();
-        String email1 = user.getEmail();
-        String pho = user.getPhoneNumber();*/
-
-        logout_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
             {
-                FirebaseAuth.getInstance().signOut();
-                Intent n = new Intent(getApplicationContext(), StartActivity.class);
-                startActivity(n);
+                ConnectivityManager cm =
+                        (ConnectivityManager)ProfileActivity.this.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+                NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+                boolean isConnected = activeNetwork != null &&
+                        activeNetwork.isConnectedOrConnecting();
+
+                if (isConnected)
+                {
+                    FirebaseAuth.getInstance().signOut();
+                    Intent n = new Intent(getApplicationContext(), StartActivity.class);
+                    startActivity(n);
+                }
+                else
+                    {
+                        Toast.makeText(getApplicationContext(), "please check your internet connection", Toast.LENGTH_SHORT).show();
+                    }
             }
         });
 
@@ -165,6 +180,30 @@ public class ProfileActivity extends AppCompatActivity {
             public void onClick(View v)
             {
                 Toast.makeText(getApplicationContext(), "edit user button clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        ref_btn.setOnClickListener(new View.OnClickListener() {
+            @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+            @Override
+            public void onClick(View v) {
+                ConnectivityManager cm =
+                        (ConnectivityManager)ProfileActivity.this.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+                NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+                boolean isConnected = activeNetwork != null &&
+                        activeNetwork.isConnectedOrConnecting();
+
+                if (isConnected)
+                {
+                    Intent n = new Intent(getApplicationContext(), ProfileActivity.class);
+                    startActivity(n,
+                            ActivityOptions.makeSceneTransitionAnimation(ProfileActivity.this).toBundle());
+                }
+                else
+                {
+                    Toast.makeText(getApplicationContext(), "please check your internet connection", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -221,4 +260,33 @@ public class ProfileActivity extends AppCompatActivity {
                 .rotation(rotate ? 90f : 0f);
         return rotate;
     }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    @Override
+    public void onBackPressed() {
+        Intent n = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(n,
+                ActivityOptions.makeSceneTransitionAnimation(ProfileActivity.this).toBundle());
+    }
+
+    /*@Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.profile_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch (item.getItemId())
+        {
+            case R.id.refresh:
+                super.onCreate(savedInstanceState);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }*/
 }
