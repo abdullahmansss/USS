@@ -38,7 +38,27 @@
         <activity android:name=".ProfileActivity" />
         <activity android:name=".EditProfileActivity" />
         <activity android:name=".FinishProfile" />
-        <activity android:name=".DepartmentsActivity"></activity>
+        <activity android:name=".DepartmentsActivity" />
+
+        <receiver
+            android:name=".MainActivity$MyBroadcast"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.INPUT_METHOD_CHANGED" />
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name=".TimelineActivity"
+            android:label="Timeline"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/TimelineTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+        <activity android:name=".FullPostImage"></activity>
     </application>
 
 </manifest>

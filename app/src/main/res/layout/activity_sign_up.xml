@@ -173,6 +173,7 @@
                 android:layout_margin="16dp"
                 android:src="@drawable/arrow"
                 android:tint="#fff"
+                app:rippleColor="#c7c7c7"
                 />
 
         </LinearLayout>

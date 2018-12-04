@@ -3,19 +3,14 @@ package mans.abdullah.abdullah_mansour.universitystudentssystem;
 import android.annotation.TargetApi;
 import android.app.ActivityOptions;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputEditText;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -35,10 +30,9 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
-import com.theartofdev.edmodo.cropper.CropImage;
-import com.theartofdev.edmodo.cropper.CropImageView;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import mans.abdullah.abdullah_mansour.universitystudentssystem.Models.UserData;
 
 public class FinishProfile extends AppCompatActivity {
 
@@ -57,8 +51,6 @@ public class FinishProfile extends AppCompatActivity {
     FirebaseStorage firebaseStorage;
     StorageReference storageReference;
 
-    int REQUEST_CAMERA = 3;
-    int SELECT_FILE = 2;
     int PICK_IMAGE_REQUEST = 71;
 
     Uri photoPath;
@@ -122,7 +114,8 @@ public class FinishProfile extends AppCompatActivity {
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
+            public void onNothingSelected(AdapterView<?> parent)
+            {
 
             }
         });
@@ -135,7 +128,8 @@ public class FinishProfile extends AppCompatActivity {
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
+            public void onNothingSelected(AdapterView<?> parent)
+            {
 
             }
         });

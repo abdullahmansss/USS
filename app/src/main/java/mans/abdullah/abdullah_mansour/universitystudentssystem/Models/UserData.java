@@ -1,7 +1,8 @@
-package mans.abdullah.abdullah_mansour.universitystudentssystem;
+package mans.abdullah.abdullah_mansour.universitystudentssystem.Models;
 
-public class UserData {
-    String userID ,name,email,phone,address,imageURL,depart,year,section;
+public class UserData
+{
+    public String userID,name,email,phone,address,imageURL,depart,year,section;
 
     public UserData()
     {

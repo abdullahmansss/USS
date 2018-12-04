@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="50dp"
+        android:layout_marginRight="15dp"
+        android:background="@drawable/newpost_dialog_background"
+        android:layout_marginLeft="15dp"
+        >
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginTop="60dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="10dp"
+            android:scrollbarSize="0dp"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+
+                <EditText
+                    android:id="@+id/post_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Share an article, photo or idea ..."
+                    android:textSize="18sp"
+                    android:textColor="#000"
+                    android:background="@android:color/transparent"
+                    android:scrollbars="vertical"
+                    android:layout_marginBottom="10dp"
+                    />
+
+                <LinearLayout
+                    android:id="@+id/add_post_photo_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="10dp"
+                    android:gravity="center_vertical"
+                    >
+
+                    <ImageView
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:src="@drawable/photo"
+                        android:layout_marginRight="10dp"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp"
+                        android:text="Add Photo"
+                        />
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/post_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:visibility="gone"
+                    />
+
+            </LinearLayout>
+
+        </ScrollView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginBottom="10dp"
+            >
+
+            <Button
+                android:id="@+id/back_btn"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="cancel"
+                android:layout_marginRight="10dp"
+                android:textStyle="bold"
+                android:textColor="#fff"
+                android:background="@drawable/circle2"
+                />
+
+            <Button
+                android:id="@+id/post_btn"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="post"
+                android:background="@drawable/circle2"
+                android:textStyle="bold"
+                android:textColor="#fff"
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/your_image"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/adduser"
+        android:layout_centerInParent="true"
+        android:layout_alignParentTop="true"
+        app:civ_border_color="@color/back"
+        app:civ_border_width="1dp"
+        />
+
+</RelativeLayout>
